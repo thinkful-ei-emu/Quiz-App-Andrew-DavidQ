@@ -1,17 +1,18 @@
-import API from './api';
-import Question from './question';
 import $ from 'jquery';
+import Quiz from './quiz';
+import API from './api';
 
 /* eslint-env jquery */
-function main() {
-  const api = new API();
-  api.getSessionToken()
-    .then(resolve => {
-      console.log(resolve.token);
-    });
 
-  let question = new Question({text: 'test question'});
-  console.log(question);
+async function main() {
+let quiz =  await new Quiz();  
+  //console.log(quiz);
+    /* quiz.getToken().then(()=>quiz.getQuestions()).then(()=>{
+    quiz.nextQuestion();
+    console.log(quiz);
+  }); */
+   quiz.nextQuestion();
+ 
+
 }
-
 $(main);

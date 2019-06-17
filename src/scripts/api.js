@@ -1,17 +1,25 @@
+const sessionTokenUrl = 'https://opentdb.com/api_token.php?command=request';
+const BASEURL = 'https://opentdb.com/api.php?amount=5';
 class API {
-  constructor() {
-    this.BASEURL = 'https://opentdb.com/api.php?amount=10';
-    this.sessionTokenUrl = 'https://opentdb.com/api_token.php?command=request';
+
+  static getQuestions(session){
+    return doFetch(`${BASEURL}&token=${session}` );
   }
 
-  getSessionToken() {
-    return fetch(this.sessionTokenUrl)
-      .then(res => {
-        if (!res.ok) return Promise.reject(new Error(res.statusText));
-        else return res.json();
-      }); 
+  static getSessionToken() {
+    return doFetch(sessionTokenUrl).then(obj=>obj.token);
   }
 
 }
+var doFetch = function(...args){
+  return fetch(...args).then(resp =>{
+    if(!resp.ok){
+      return Promise.reject(new Error(resp.statusText));
+    }else{
+      return resp.json();
+    }
+  });
+
+};  
 
 export default API;
