@@ -28,7 +28,9 @@ class Quiz {
       this.asked.push(this.currentQuestion);
       console.log(this.currentQuestion.question);
     }else{
-      console.log('no quesion left');
+      console.log( ` Thanks for playing! Your score was ${this.score}.Would u like to play aagain? Y/N`);
+      this.scoreHistory.push(this.score);
+      this.active = false;
       //game over
     }
   }
@@ -41,6 +43,10 @@ class Quiz {
       console.log('Sorry thats wrong');
     }
     this.nextQuestion();
+
+  }
+  endOfQuiz(){
+    console.log(' would u like to play aagain?');
 
   }
 
