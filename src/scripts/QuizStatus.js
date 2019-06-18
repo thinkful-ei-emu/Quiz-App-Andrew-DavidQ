@@ -1,4 +1,4 @@
-import Renderer from './lib/Renderer';
+import Renderer from '../lib/Renderer';
 
 class QuizStatus extends Renderer {
   template() {

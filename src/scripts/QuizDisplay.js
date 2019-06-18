@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import Renderer from './lib/Renderer';
+import Renderer from '../lib/Renderer';
 
 class QuizDisplay extends Renderer {
   getEvents() {
@@ -23,9 +22,12 @@ class QuizDisplay extends Renderer {
       </div>
     `;
   }
-  _generateQuestion(){
 
-    return `<h2>${this.model.currentQuestion.question}</h2>`;
+  _generateQuestion() {
+    const question = this.model.currentQuestion.question;
+
+    return `
+      <h2>${question}</h2>`;
   }
 
   template() {
@@ -35,9 +37,9 @@ class QuizDisplay extends Renderer {
       // Quiz has not started
       html = this._generateIntro();
     }
-    if(this.model.active){
-      html = this._generateQuestion();
-    }
+    // if(this.model.active){
+    //   html = this._generateQuestion();
+    // }
     
     return html;
   }
