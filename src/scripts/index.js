@@ -7,7 +7,7 @@ import QuizDisplay from './QuizDisplay';
 
 function main() {
   let quiz = new Quiz();
-  //let quizStatus = new QuizStatus(quiz,'.quizStatus');
+  let quizStatus = new QuizStatus(quiz,'.quizStatus');
   let quizDisplay = new QuizDisplay(quiz,'.quizDisplay');
   window.quiz = quiz; // exposes quiz to terminal for testing purpose 
   window.quizDisplay = quizDisplay;

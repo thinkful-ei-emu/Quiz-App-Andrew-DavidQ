@@ -5,7 +5,8 @@ class QuizDisplay extends Renderer {
     return {
       'click .start-quiz': 'handleStart',
       'submit #questionForm': 'handleSubmit',
-      'click #playAgainButton': 'handlePlayAgain'
+      'click #playAgainButton': 'handlePlayAgain',
+      'click #nextBtn':'handleNext',
     };
   }
 
@@ -33,7 +34,7 @@ class QuizDisplay extends Renderer {
       console.log(answer);
       answers += `
         <li>
-          <input id="${answer}" name="answer" type="radio" value="${answer}"/>
+          <input id="${answer}" name="answer" type="radio" value="${answer}" required ${this.model.currentQuestion.answered ? 'disabled': ''}/>
           <label for="${answer}">${answer}</label>
         </li>
         `;
@@ -45,7 +46,8 @@ class QuizDisplay extends Renderer {
         <ul>
           ${answers}
         </ul>
-        <button type="submit" value="Submit">Submit</button>
+        <button type="submit" value="Submit" ${this.model.currentQuestion.answered ? 'disabled': ''}>Submit</button>
+        <button id="nextBtn" type="button" ${this.model.currentQuestion.answered ? '': 'disabled'}>Next >></button>
       </form>
       `;
   }
@@ -58,6 +60,16 @@ class QuizDisplay extends Renderer {
       <button id="playAgainButton" type="button">Play Again?</button>
     `;
   }
+  _generateResults(){
+
+    if(!this.model.currentQuestion.answered){
+      return '';
+    }else if(this.model.currentQuestion.correct){
+      return `<p> YOU GOT IT RIGHT</p>`
+    }else{
+      return `<p>Sorry thats wrong :(</p>`;
+    }
+  }
 
   template() {
     let html = '';
@@ -66,8 +78,8 @@ class QuizDisplay extends Renderer {
       // Quiz has not started
       html = this._generateIntro();
     }
-    else if (this.model.active && this.model.unasked.length) {
-      html = this._generateQuestion();
+    else if (this.model.active) {
+      html = this._generateQuestion() + this._generateResults();
     }
     else {
       this.model.endOfQuiz();
@@ -92,6 +104,10 @@ class QuizDisplay extends Renderer {
     console.log(answer);
     console.log(this.model.currentQuestion.correct_answer);
     this.model.handleQuestion(answer);
+    this.renderAll();
+  }
+  handleNext(e){
+    this.model.nextQuestion();
     this.renderAll();
   }
 

@@ -9,7 +9,7 @@ class Quiz extends Model {
     this.unasked = [];
     this.asked = [];
     this.score = 0;
-    this.scoreHistory = [];
+    this.scoreHistory = [0];
     this.currentQuestion = null;
     this.active = false;
     this.getToken()
@@ -53,6 +53,8 @@ class Quiz extends Model {
       this.asked.push(this.currentQuestion);
       // console.log(this.currentQuestion.question);
       // console.log(this.currentQuestion);
+    }else{
+      this.active =false;
     }
   }
 
@@ -72,14 +74,14 @@ class Quiz extends Model {
    * 
    * @param {string} ans 
    */
-  handleQuestion(ans) {
+  handleQuestion(ans) { 
     if(this.currentQuestion.checkAnswer(ans)) {
       this.score++;
-      console.log('Correct!');
+      return true;
     }else{
       console.log('Sorry that\'s wrong');
+      return false;
     }
-    this.nextQuestion();
   }
 
   handleReset() {
