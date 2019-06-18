@@ -14,12 +14,6 @@ class Quiz {
     // this.getQuestions();
   }
 
-  startQuiz() {
-    this.active = true;
-
-    // do other stuff
-  }
-
   async getToken() {
     let token = await API.getSessionToken();
 
@@ -36,7 +30,14 @@ class Quiz {
     this.unasked = questions.results.map(q => new Question(q));
 
     if (!questions) return Promise.reject('Failed to retrieve questions.');
-    else return Promise.resolve(questions);
+
+    return Promise.resolve(questions);
+  }
+
+  startQuiz() {
+    this.active = true;
+
+    // do other stuff
   }
 
   answerQuestion(question, input) {
