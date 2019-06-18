@@ -8,10 +8,9 @@ class QuizStatus extends Renderer {
         <p>Previous Score:${this.model.getHighScore()}</p>
     `;
     }else{
-      return `<p>current score: ${this.model.score}</p>
-        <p> ${this.model.asked.length} of 5 </p>
+      return `<p class="col-md-4">current score: ${this.model.score}</p>
+        <p class="col-md-4">${this.model.asked.length} of 5 </p>
       `;
-
     }
   }
 }

@@ -13,61 +13,70 @@ class QuizDisplay extends Renderer {
   _generateIntro() {
     return `
       <div>
-        <p>
+        <h2>
           Welcome to the Trivia Quiz
-        </p>
+        </h2>
         <p>
           Test your smarts and see how high you can score!
         </p>
       </div>
       <div class="buttons">
-        <button class="start-quiz">Start Quiz</button>
+        <button class="start-quiz btn">Start Quiz</button>
       </div>
     `;
   }
 
   _generateQuestion() {
     let currentQuestion = this.model.currentQuestion;
+    const answered = currentQuestion.answered;
     const question = currentQuestion.question;
     let answers = '';
     currentQuestion.allAnswers.forEach(answer => {
       console.log(answer);
       answers += `
         <li>
-          <input id="${answer}" name="answer" type="radio" value="${answer}" required ${this.model.currentQuestion.answered ? 'disabled': ''}/>
-          <label for="${answer}">${answer}</label>
+          <input id="${answer}" name="answer" type="radio" value="${answer}" required ${answered ? 'disabled': ''}/>
+          <label class="btn btn-primary choices" for="${answer}">${answer}</label>
         </li>
         `;
     });
 
     return `
       <form id="questionForm">
-        <h2>${question}</h2>
-        <ul>
+        <h2 class="question">${question}</h2>
+        <ul class="btn-group-vertical">
           ${answers}
         </ul>
-        <button type="submit" value="Submit" ${this.model.currentQuestion.answered ? 'disabled': ''}>Submit</button>
-        <button id="nextBtn" type="button" ${this.model.currentQuestion.answered ? '': 'disabled'}>Next >></button>
+        <button type="submit" class="btn" value="Submit" ${answered ? 'disabled': ''}>Submit</button>
+        <button id="nextBtn" class="btn" type="button" ${answered ? '': 'disabled'}>Next >></button>
       </form>
       `;
   }
-
   _generateEndScreen() {
     return `
       <p>You finished the quiz!</p>
       <p>Score: ${this.model.score}</p>
       <p>High Score: ${this.model.getHighScore()}</p>
-      <button id="playAgainButton" type="button">Play Again?</button>
+      <button id="playAgainButton" class="btn" type="button">Play Again?</button>
     `;
   }
-  _generateResults(){
 
+  _generateResults(){
     if(!this.model.currentQuestion.answered){
       return '';
-    }else if(this.model.currentQuestion.correct){
-      return `<p> YOU GOT IT RIGHT</p>`
-    }else{
-      return `<p>Sorry thats wrong :(</p>`;
+    }
+    else if (this.model.currentQuestion.correct){
+      return `
+        <p>You got it right!</p>
+        <p>Your answer was: ${this.model.currentQuestion.userAnswer}</p>
+      `;
+    }
+    else {
+      return `
+        <p>Sorry that's wrong.</p>
+        <p>Your answer was: ${this.model.currentQuestion.userAnswer}</p>
+        <p>The correct answer was: ${this.model.currentQuestion.correct_answer}</p>
+      `;
     }
   }
 
@@ -106,7 +115,8 @@ class QuizDisplay extends Renderer {
     this.model.handleQuestion(answer);
     this.renderAll();
   }
-  handleNext(e){
+
+  handleNext(e) {
     this.model.nextQuestion();
     this.renderAll();
   }
