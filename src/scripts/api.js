@@ -1,5 +1,5 @@
 const sessionTokenUrl = 'https://opentdb.com/api_token.php?command=request';
-const BASEURL = 'https://opentdb.com/api.php?amount=5';
+const BASEURL = 'https://opentdb.com/api.php?amount=5&encode=url3986';
 
 class API {
   /**

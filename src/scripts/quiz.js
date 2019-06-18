@@ -16,6 +16,7 @@ class Quiz extends Model {
       .then(() => { this.getQuestions();
       });
   }
+
   async getToken() {
     const sessionToken = await API.getSessionToken();
 
@@ -50,15 +51,21 @@ class Quiz extends Model {
       
       //ask the question
       this.asked.push(this.currentQuestion);
-      console.log(this.currentQuestion.question);
-      console.log(this.currentQuestion);
+      // console.log(this.currentQuestion.question);
+      // console.log(this.currentQuestion);
     }
-    else {
-      console.log(`Thanks for playing! Your score was ${this.score}.Would u like to play aagain? Y/N`);
-      this.scoreHistory.push(this.score);
-      this.active = false;
-      //game over
-    }
+  }
+
+  endOfQuiz() {
+    this.scoreHistory.push(this.score);
+    this.asked = [];
+    this.currentQuestion = null;
+    console.log('Would you like to play again?');
+
+  }
+
+  getHighScore() {
+    return Math.max(...this.scoreHistory);
   }
 
   /**
@@ -73,13 +80,13 @@ class Quiz extends Model {
       console.log('Sorry that\'s wrong');
     }
     this.nextQuestion();
-
-  }
-  endOfQuiz() {
-    console.log('Would you like to play again?');
-
   }
 
+  handleReset() {
+    console.log(this);
+    this.score = 0;
+    this.getQuestions();
+  }
 }
 
 export default Quiz;

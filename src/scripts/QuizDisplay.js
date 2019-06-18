@@ -4,7 +4,8 @@ class QuizDisplay extends Renderer {
   getEvents() {
     return {
       'click .start-quiz': 'handleStart',
-      'submit #questionForm': 'handleSubmit'
+      'submit #questionForm': 'handleSubmit',
+      'click #playAgainButton': 'handlePlayAgain'
     };
   }
 
@@ -49,6 +50,15 @@ class QuizDisplay extends Renderer {
       `;
   }
 
+  _generateEndScreen() {
+    return `
+      <p>You finished the quiz!</p>
+      <p>Score: ${this.model.score}</p>
+      <p>High Score: ${this.model.getHighScore()}</p>
+      <button id="playAgainButton" type="button">Play Again?</button>
+    `;
+  }
+
   template() {
     let html = '';
     
@@ -56,8 +66,12 @@ class QuizDisplay extends Renderer {
       // Quiz has not started
       html = this._generateIntro();
     }
-    if(this.model.active) {
+    else if (this.model.active && this.model.unasked.length) {
       html = this._generateQuestion();
+    }
+    else {
+      this.model.endOfQuiz();
+      html = this._generateEndScreen();
     }
     
     return html;
@@ -76,7 +90,13 @@ class QuizDisplay extends Renderer {
     e.preventDefault();
     let answer = new FormData(e.target).get('answer');
     console.log(answer);
+    console.log(this.model.currentQuestion.correct_answer);
     this.model.handleQuestion(answer);
+    this.renderAll();
+  }
+
+  handlePlayAgain(e) {
+    this.model.handleReset();
     this.renderAll();
   }
 }
