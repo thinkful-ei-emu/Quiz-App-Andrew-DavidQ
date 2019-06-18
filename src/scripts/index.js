@@ -5,13 +5,32 @@ import API from './api';
 /* eslint-env jquery */
 
 async function main() {
-  let quiz =  await new Quiz();  
-  //console.log(quiz);
-  /* quiz.getToken().then(()=>quiz.getQuestions()).then(()=>{
-    quiz.nextQuestion();
-    console.log(quiz);
-  }); */
-  quiz.nextQuestion();
+  let quiz = new Quiz();
+
+  await quiz.getToken();
+  await quiz.getQuestions();
+
+  // console.log(questions);
+
+  let x = 0;
+  quiz.unasked.forEach((q) => {
+    console.log(++x, q);
+    console.log(q.allAnswers);
+  });
+  
+  // quiz.getToken()
+  //   .then(() => quiz.getQuestions()
+  //     .then(() => {
+  //       quiz.nextQuestion();
+  //       console.log(quiz);
+  //     }));
+  // let variable = await asyncFunction();
+  // let variable;
+  // asyncFunction.then(res => {
+  //   variable = res;
+  // });
+  // quiz.nextQuestion();
+  // console.log(quiz);
 }
 
 $(main);
