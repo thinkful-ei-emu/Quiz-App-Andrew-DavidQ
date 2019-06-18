@@ -5,14 +5,13 @@ import API from './api';
 /* eslint-env jquery */
 
 async function main() {
-let quiz =  await new Quiz();  
+  let quiz =  await new Quiz();  
   //console.log(quiz);
-    /* quiz.getToken().then(()=>quiz.getQuestions()).then(()=>{
+  /* quiz.getToken().then(()=>quiz.getQuestions()).then(()=>{
     quiz.nextQuestion();
     console.log(quiz);
   }); */
-   quiz.nextQuestion();
- 
-
+  quiz.nextQuestion();
 }
+
 $(main);
