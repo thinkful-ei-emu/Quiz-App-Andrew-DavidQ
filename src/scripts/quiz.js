@@ -51,6 +51,7 @@ class Quiz extends Model {
       //ask the question
       this.asked.push(this.currentQuestion);
       console.log(this.currentQuestion.question);
+      console.log(this.currentQuestion);
     }
     else {
       console.log(`Thanks for playing! Your score was ${this.score}.Would u like to play aagain? Y/N`);
@@ -60,6 +61,10 @@ class Quiz extends Model {
     }
   }
 
+  /**
+   * 
+   * @param {string} ans 
+   */
   handleQuestion(ans) {
     if(this.currentQuestion.checkAnswer(ans)) {
       this.score++;

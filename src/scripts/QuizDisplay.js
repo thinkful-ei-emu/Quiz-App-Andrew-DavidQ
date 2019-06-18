@@ -4,6 +4,7 @@ class QuizDisplay extends Renderer {
   getEvents() {
     return {
       'click .start-quiz': 'handleStart',
+      'submit #questionForm': 'handleSubmit'
     };
   }
 
@@ -24,10 +25,28 @@ class QuizDisplay extends Renderer {
   }
 
   _generateQuestion() {
-    const question = this.model.currentQuestion.question;
+    let currentQuestion = this.model.currentQuestion;
+    const question = currentQuestion.question;
+    let answers = '';
+    currentQuestion.allAnswers.forEach(answer => {
+      console.log(answer);
+      answers += `
+        <li>
+          <input id="${answer}" name="answer" type="radio" value="${answer}"/>
+          <label for="${answer}">${answer}</label>
+        </li>
+        `;
+    });
 
     return `
-      <h2>${question}</h2>`;
+      <form id="questionForm">
+        <h2>${question}</h2>
+        <ul>
+          ${answers}
+        </ul>
+        <button type="submit" value="Submit">Submit</button>
+      </form>
+      `;
   }
 
   template() {
@@ -37,9 +56,9 @@ class QuizDisplay extends Renderer {
       // Quiz has not started
       html = this._generateIntro();
     }
-    // if(this.model.active){
-    //   html = this._generateQuestion();
-    // }
+    if(this.model.active) {
+      html = this._generateQuestion();
+    }
     
     return html;
   }
@@ -47,6 +66,18 @@ class QuizDisplay extends Renderer {
   handleStart() {
     this.model.startNewGame();
     this.renderAll();//this function should be called every time quiz has a state change
+  }
+
+  /**
+   * 
+   * @param {string} ans 
+   */
+  handleSubmit(e) {
+    e.preventDefault();
+    let answer = new FormData(e.target).get('answer');
+    console.log(answer);
+    this.model.handleQuestion(answer);
+    this.renderAll();
   }
 }
 
