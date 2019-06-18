@@ -1,18 +1,21 @@
 import API from './api';
 import Question from './question';
+
 class Quiz {
-  constructor() {    
+  
+  constructor() {
     this.unasked = [];
     this.asked = [];
     this.score = 0;
     this.scoreHistory = [];
     this.currentQuestion = null;
     this.active = false;
-    this.getToken();
-    this.getQuestions();
-    // this.getToken().then(()=>{
-    //   this.getQuestions().then(() =>this.active=true);
-    // });
+    // this.getToken();
+    // this.getQuestions();
+    this.getToken()
+      .then(() => { this.getQuestions()
+        .then(() => this.startQuiz());
+      });
   }
   async getToken() {
     const sessionToken = await API.getSessionToken();
@@ -34,6 +37,10 @@ class Quiz {
     });
 
     return Promise.resolve(questions);
+  }
+
+  startQuiz() {
+    this.active = true;
   }
 
   nextQuestion() {
