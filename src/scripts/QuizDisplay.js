@@ -13,9 +13,9 @@ class QuizDisplay extends Renderer {
   _generateIntro() {
     return `
       <div>
-        <h2>
+        <h1>
           Welcome to the Trivia Quiz
-        </h2>
+        </h1>
         <p>
           Test your smarts and see how high you can score!
         </p>
@@ -43,7 +43,7 @@ class QuizDisplay extends Renderer {
 
     return `
       <form id="questionForm">
-        <h2 class="question">${question}</h2>
+        <h1 class="question">${question}</h1>
         <ul class="btn-group-vertical">
           ${answers}
         </ul>
@@ -54,7 +54,7 @@ class QuizDisplay extends Renderer {
   }
   _generateEndScreen() {
     return `
-      <p>You finished the quiz!</p>
+      <h1>You finished the quiz!</h1>
       <p>Score: ${this.model.score}</p>
       <p>High Score: ${this.model.getHighScore()}</p>
       <button id="playAgainButton" class="btn" type="button">Play Again?</button>
