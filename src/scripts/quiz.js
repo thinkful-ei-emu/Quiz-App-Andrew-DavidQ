@@ -1,20 +1,19 @@
 import API from './api';
 import Question from './question';
+import Model from '../lib/Model';
 
-class Quiz {
+class Quiz extends Model {
   
   constructor() {
+    super();
     this.unasked = [];
     this.asked = [];
     this.score = 0;
     this.scoreHistory = [];
     this.currentQuestion = null;
     this.active = false;
-    // this.getToken();
-    // this.getQuestions();
     this.getToken()
-      .then(() => { this.getQuestions()
-        .then(() => this.startQuiz());
+      .then(() => { this.getQuestions();
       });
   }
   async getToken() {
@@ -39,8 +38,9 @@ class Quiz {
     return Promise.resolve(questions);
   }
 
-  startQuiz() {
+  startNewGame() {
     this.active = true;
+    this.nextQuestion();
   }
 
   nextQuestion() {
