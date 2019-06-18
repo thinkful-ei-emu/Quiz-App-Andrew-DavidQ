@@ -7,8 +7,6 @@ import API from './api';
 function main() {
   let quiz = new Quiz();
   window.quiz = quiz; // exposes quiz to terminal for testing purpose 
-
- 
-
 }
+
 $(main);
