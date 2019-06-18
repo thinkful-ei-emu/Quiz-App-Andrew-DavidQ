@@ -6,9 +6,10 @@ class Quiz {
     this.asked = [];
     this.score = 0;
     this.scoreHistory = [];
+    this.currentQuestion = null;
     this.active = false;
     this.getToken().then(()=>{
-      this.getQuestions().then(() => this.nextQuestion());
+      this.getQuestions().then(() =>this.active=true);
     });
   }
   getToken(){
@@ -22,14 +23,25 @@ class Quiz {
   nextQuestion(){
     if(this.unasked.length){
       //temp is temparaly representing DOM
-      let temp = this.unasked.shift();
+      this.currentQuestion = this.unasked.shift();
       //ask the question
-      this.asked.push(temp);
-      console.log(temp);
+      this.asked.push(this.currentQuestion);
+      console.log(this.currentQuestion.question);
     }else{
       console.log('no quesion left');
       //game over
     }
+  }
+
+  handleQuestion(ans){
+    if(this.currentQuestion.checkAnswer(ans)){
+      this.score++;
+      console.log('Correct!');
+    }else{
+      console.log('Sorry thats wrong');
+    }
+    this.nextQuestion();
+
   }
 
 }
