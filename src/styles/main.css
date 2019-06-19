@@ -5,10 +5,22 @@
 html {
   padding: 5px;
 }
+audio{
+  position: fixed;
+  bottom: 1%;
+  left:1%;
+  opacity: 0.1 ;
+}
+audio:hover{
+  opacity: 1;
+}
 
 .quizStatus {
   display: flex;
   flex-direction: row;
+}
+input{
+  background-color: red;
 }
 /* .progress {
   text-align: right;

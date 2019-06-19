@@ -5,6 +5,7 @@ import QuizDisplay from './QuizDisplay';
 import '../styles/css/bootstrap.css';
 import '../styles/main.css';
 
+
 /* eslint-env jquery */
 
 function main() {
