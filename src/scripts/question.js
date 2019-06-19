@@ -20,7 +20,7 @@ class Question {
 
     this.allAnswers = [...this.incorrect_answers];
     this.allAnswers.push(this.correct_answer);
-    this.allAnswers.sort((a, b) => a < b);
+    this.allAnswers.sort();
   }
 
   /**

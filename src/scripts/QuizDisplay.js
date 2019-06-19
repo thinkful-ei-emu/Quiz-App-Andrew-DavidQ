@@ -67,15 +67,19 @@ class QuizDisplay extends Renderer {
     }
     else if (this.model.currentQuestion.correct){
       return `
-        <p>You got it right!</p>
-        <p>Your answer was: ${this.model.currentQuestion.userAnswer}</p>
+        <section class="green">
+          <p>You got it right!</p>
+          <p>Your answer was: ${this.model.currentQuestion.userAnswer}</p>
+        </section>
       `;
     }
     else {
       return `
-        <p>Sorry that's wrong.</p>
-        <p>Your answer was: ${this.model.currentQuestion.userAnswer}</p>
-        <p>The correct answer was: ${this.model.currentQuestion.correct_answer}</p>
+        <section class="red">
+          <p>Sorry that's wrong.</p>
+          <p>Your answer was: ${this.model.currentQuestion.userAnswer}</p>
+          <p>The correct answer was: ${this.model.currentQuestion.correct_answer}</p>
+        </section>
       `;
     }
   }
