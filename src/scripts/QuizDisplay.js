@@ -32,7 +32,6 @@ class QuizDisplay extends Renderer {
     const question = currentQuestion.question;
     let answers = '';
     currentQuestion.allAnswers.forEach(answer => {
-      console.log(answer);
       answers += `
         <li>
           <input id="${answer}" name="answer" type="radio" value="${answer}" required ${answered ? 'disabled': ''}/>
@@ -67,15 +66,19 @@ class QuizDisplay extends Renderer {
     }
     else if (this.model.currentQuestion.correct){
       return `
-        <p>You got it right!</p>
-        <p>Your answer was: ${this.model.currentQuestion.userAnswer}</p>
+        <section class="green">
+          <p>You got it right!</p>
+          <p>Your answer was: ${this.model.currentQuestion.userAnswer}</p>
+        </section>
       `;
     }
     else {
       return `
-        <p>Sorry that's wrong.</p>
-        <p>Your answer was: ${this.model.currentQuestion.userAnswer}</p>
-        <p>The correct answer was: ${this.model.currentQuestion.correct_answer}</p>
+        <section class="red">
+          <p>Sorry that's wrong.</p>
+          <p>Your answer was: ${this.model.currentQuestion.userAnswer}</p>
+          <p>The correct answer was: ${this.model.currentQuestion.correct_answer}</p>
+        </section>
       `;
     }
   }
@@ -110,18 +113,16 @@ class QuizDisplay extends Renderer {
   handleSubmit(e) {
     e.preventDefault();
     let answer = new FormData(e.target).get('answer');
-    console.log(answer);
-    console.log(this.model.currentQuestion.correct_answer);
     this.model.handleQuestion(answer);
     this.renderAll();
   }
 
-  handleNext(e) {
+  handleNext() {
     this.model.nextQuestion();
     this.renderAll();
   }
 
-  handlePlayAgain(e) {
+  handlePlayAgain() {
     this.model.handleReset();
     this.renderAll();
   }

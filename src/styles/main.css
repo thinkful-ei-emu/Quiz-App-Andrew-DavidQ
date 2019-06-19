@@ -15,22 +15,29 @@ audio:hover{
   opacity: 1;
 }
 
+@media only screen and (max-width: 450px) {
+  h1 {
+    font-size: 20px;
+  }
+}
+
 .quizStatus {
   display: flex;
   flex-direction: row;
 }
-input{
-  background-color: red;
-}
-/* .progress {
-  text-align: right;
-} */
 
 .quizDisplay {
   display: flex;
   flex-direction: column;
   align-content: center;
   text-align: center;
+}
+
+.green {
+  color: green;
+}
+.red {
+  color: red;
 }
 
 .question {
@@ -70,4 +77,5 @@ label.choices {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  text-overflow: initial;
 }
