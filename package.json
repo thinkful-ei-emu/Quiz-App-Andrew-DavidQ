@@ -20,7 +20,7 @@
   "homepage": "https://github.com/thinkful-ei-emu/Quiz-App-Andrew-DavidQ#readme",
   "dependencies": {
     "cuid": "^2.1.6",
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   },
   "devDependencies": {
     "css-loader": "^3.0.0",
